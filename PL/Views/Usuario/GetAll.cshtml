@@ -1,0 +1,80 @@
+﻿@model ML.Usuario
+@{
+    ViewData["Title"] = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form action="~/Usuario/GetAll" method="post" >
+
+<div class="row">
+    <div class="col-2">
+            @Html.TextBoxFor(model=>model.Name, new { @class = "form-control", @placeholder = "Nombre" })
+    </div>
+    <div class="col-2">
+            @Html.TextBoxFor(model=>model.LastName, new { @class = "form-control", @placeholder = "Apellido Paterno" })
+    </div>
+
+    <div class="col-2">
+            @Html.TextBoxFor(model=>model.SurName, new { @class = "form-control", @placeholder = "Apellido Materno" })
+    </div>
+    
+    <div class="col-2">
+            @Html.TextBoxFor(model=>model.Email, new { @class = "form-control", @placeholder = "Email" })
+    </div>
+
+    <div class="col-1">
+        <input type="submit" value="Buscar" class="btn btn-primary" />
+    </div>
+
+    <div class="col-2">
+        <a class=" btn btn-success" href="@Url.Action("Form", "Usuario")"> Agregar </a>
+    </div>
+</div>    
+
+</form>
+<br />
+<table class="table table-bordered " id="tablaAlumno">
+        <thead>
+            <tr class="table-dark">
+                <th>Editar</th>
+                <th>Id Usuario</th>
+                <th @*style="display :none;"*@>IdRol</th>
+                <th>Nombre Rol</th>
+                <th>Name</th>
+                <th>LastName</th>
+                <th>SurName</th>
+                <th>Email</th>
+                <th>UserName</th>
+                <th>Password</th>
+                <th>Parent</th>
+                <th>Status</th>
+                <th>Eliminar</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (ML.Usuario usuario in Model.UsuarioList)
+        {
+            <tr>
+                <td class="text-center"><a class="btn btn-warning" href="@Url.Action("Form", "Usuario", new { IdUsers = usuario.IdUsers})"> <i class="bi bi-pencil-square"></i></a></td>
+
+                <td>@usuario.IdUsers</td>
+                <td>@usuario.Rol.IdRol</td>
+                <td>@usuario.Rol.RolName</td>
+                <td>@usuario.Name</td>
+                <td>@usuario.LastName</td>
+                <td>@usuario.SurName</td>
+                <td>@usuario.Email</td>
+                <td>@usuario.UserName</td>
+                <td>@usuario.Passwords</td>
+                <td>@usuario.Parent</td>
+                <td>@usuario.Status</td>
+
+                <td class="text-center"><a class="btn btn-danger" href="@Url.Action("Delete", "Usuario", new { IdUsers = usuario.IdUsers })" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"><i class="bi bi-trash3-fill"></i>  </a></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+
+
